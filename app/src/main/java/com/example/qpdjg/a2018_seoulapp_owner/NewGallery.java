@@ -55,10 +55,27 @@ public class NewGallery extends AppCompatActivity {
     String G_time;
     String G_fee;
     Button Pic_button;
-    private static final int GALLERY_CODE = 10;
+    private static final int GALLERY_CODE1 = 10;
+    private static final int GALLERY_CODE2 = 11;
+    private static final int GALLERY_CODE3 = 12;
+    private static final int GALLERY_CODE4 = 13;
+    private static final int GALLERY_CODE5 = 14;
+    private static final int GALLERY_CODE6 = 15;
     private ImageView imageView1;
+    private ImageView imageView2;
+    private ImageView imageView3;
+    private ImageView imageView4;
+    private ImageView imageView5;
+    private ImageView imageView6;
+
     private String imagePath1;
-    private Uri downloadUri1;
+    private String imagePath2;
+    private String imagePath3;
+    private String imagePath4;
+    private String imagePath5;
+    private String imagePath6;
+
+    private Uri downloadUri;
 
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mReference = mDatabase.getReference();
@@ -81,8 +98,13 @@ public class NewGallery extends AppCompatActivity {
         Gallery_time= (EditText)findViewById(R.id.Gallery_time);
         Gallery_fee= (EditText)findViewById(R.id.Gallery_fee);
         submit_button = (Button)findViewById(R.id.submit_button);
-        Pic_button = (Button)findViewById(R.id.Pic_Button);
         imageView1 = (ImageView)findViewById(R.id.imageView1);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+        imageView3 = (ImageView)findViewById(R.id.imageView3);
+        imageView4 = (ImageView)findViewById(R.id.imageView4);
+        imageView5 = (ImageView)findViewById(R.id.imageView5);
+        imageView6 = (ImageView)findViewById(R.id.imageView6);
+
 
         G_location_from_list = new String[1];
 
@@ -105,6 +127,61 @@ public class NewGallery extends AppCompatActivity {
 
             }
 
+        });
+
+
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent,GALLERY_CODE1);
+            }
+        });
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent,GALLERY_CODE2);
+            }
+        });
+
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent,GALLERY_CODE3);
+            }
+        });
+
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent,GALLERY_CODE4);
+            }
+        });
+
+        imageView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent,GALLERY_CODE5);
+            }
+        });
+
+        imageView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent,GALLERY_CODE6);
+            }
         });
 
     }
@@ -150,31 +227,56 @@ public class NewGallery extends AppCompatActivity {
         mReference.child(G_name).setValue(G_name);
 
         upload_img(imagePath1);
+        upload_img(imagePath2);
+        upload_img(imagePath3);
+        upload_img(imagePath4);
+        upload_img(imagePath5);
+        upload_img(imagePath6);
 
-        /*System.out.println("앙?"+downloadUri1);
-        Gallery_imgs_Data gallery_imgs_data = new Gallery_imgs_Data();
-        gallery_imgs_data.IMG01 = downloadUri1;
-
-        mReference.child(G_name).setValue(gallery_imgs_data);
-*/
-        Toast.makeText(getApplicationContext(), "갤러리 등록이 완료 되었습니다. 사용자 어플에서 확인해보세요.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "갤러리 등록중입니다... 기다려주세요...", Toast.LENGTH_SHORT).show();
 
     }
 
-    public void Pic_pictures(View view) {
+
+
+   /* public void Pic_pictures(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
 
         startActivityForResult(intent,GALLERY_CODE);
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == GALLERY_CODE){
+        if(requestCode == GALLERY_CODE1){
             imagePath1 = getPath(data.getData());
             File f = new File(imagePath1);
             imageView1.setImageURI(Uri.fromFile(f));
-
+        }
+        if(requestCode == GALLERY_CODE2){
+            imagePath2 = getPath(data.getData());
+            File f = new File(imagePath2);
+            imageView2.setImageURI(Uri.fromFile(f));
+        }
+        if(requestCode == GALLERY_CODE3){
+            imagePath3 = getPath(data.getData());
+            File f = new File(imagePath3);
+            imageView3.setImageURI(Uri.fromFile(f));
+        }
+        if(requestCode == GALLERY_CODE4){
+            imagePath4 = getPath(data.getData());
+            File f = new File(imagePath4);
+            imageView4.setImageURI(Uri.fromFile(f));
+        }
+        if(requestCode == GALLERY_CODE5){
+            imagePath5 = getPath(data.getData());
+            File f = new File(imagePath5);
+            imageView5.setImageURI(Uri.fromFile(f));
+        }
+        if(requestCode == GALLERY_CODE6){
+            imagePath6 = getPath(data.getData());
+            File f = new File(imagePath6);
+            imageView6.setImageURI(Uri.fromFile(f));
         }
     }
     public String getPath(Uri uri){
@@ -189,11 +291,11 @@ public class NewGallery extends AppCompatActivity {
         return cursor.getString(index);
     }
 
-    private void upload_img(String uri){
+    private void upload_img(final String uri){
         StorageReference storageRef = storage.getReference();
 
         Uri file = Uri.fromFile(new File(uri));
-        final StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
+        final StorageReference riversRef = storageRef.child(G_name+"/"+file.getLastPathSegment());
         final UploadTask uploadTask = riversRef.putFile(file);
 
         // Register observers to listen for when the download is done or if it fails
@@ -219,11 +321,34 @@ public class NewGallery extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
-                            downloadUri1 = task.getResult();
 
-                            mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                            if(uri.equals(imagePath1)){
+                                downloadUri = task.getResult();
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                                mReference.child("01").setValue(downloadUri.toString());
+                            }else if(uri.equals(imagePath2)){
+                                downloadUri = task.getResult();
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                                mReference.child("02").setValue(downloadUri.toString());
+                            }else if(uri.equals(imagePath3)){
+                                downloadUri = task.getResult();
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                                mReference.child("03").setValue(downloadUri.toString());
+                            }else if(uri.equals(imagePath4)){
+                                downloadUri = task.getResult();
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                                mReference.child("04").setValue(downloadUri.toString());
+                            }else if(uri.equals(imagePath5)){
+                                downloadUri = task.getResult();
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                                mReference.child("05").setValue(downloadUri.toString());
+                            }else if(uri.equals(imagePath6)){
+                                downloadUri = task.getResult();
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
+                                mReference.child("06").setValue(downloadUri.toString());
+                            }
+                            Toast.makeText(getApplicationContext(), "갤러리 등록이 완료 되었습니다. 사용자 어플에서 확인해보세요.", Toast.LENGTH_LONG).show();
 
-                            mReference.child("01").setValue(downloadUri1.toString());
                         } else {
                             // Handle failures
                             // ...

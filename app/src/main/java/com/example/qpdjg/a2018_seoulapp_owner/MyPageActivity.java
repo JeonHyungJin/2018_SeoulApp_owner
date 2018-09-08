@@ -62,7 +62,7 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
 
         if(view == EnterNewGallery_button){
-            finish();
+
             startActivity(new Intent(this, NewGallery.class));
         }
 
