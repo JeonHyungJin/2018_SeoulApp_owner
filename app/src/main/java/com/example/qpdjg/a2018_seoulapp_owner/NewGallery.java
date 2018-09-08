@@ -118,6 +118,12 @@ public class NewGallery extends AppCompatActivity {
         G_time = Gallery_time.getText().toString();
         G_fee = Gallery_fee.getText().toString();
 
+        if(G_name.equals("")||G_explain.equals("")||O_explain.equals("")||O_insta.equals("")||G_location.equals("")||G_time.equals("")||G_fee.equals("")){
+
+            Toast.makeText(getApplicationContext(),"빠진 정보를 입력하세요.",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]);
         Gallery_Data gallery_data = new Gallery_Data();
         gallery_data.Gallery_name = G_name;
