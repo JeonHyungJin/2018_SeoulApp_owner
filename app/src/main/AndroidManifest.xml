@@ -3,7 +3,7 @@
     package="com.example.qpdjg.a2018_seoulapp_owner">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +22,8 @@
         <activity android:name=".MyPageActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".FindActivity" />
-        <activity android:name=".NewGallery"></activity>
+        <activity android:name=".NewGallery" />
+        <activity android:name=".MyGallerys"></activity>
     </application>
 
 </manifest>

@@ -68,12 +68,12 @@ public class NewGallery extends AppCompatActivity {
     private ImageView imageView5;
     private ImageView imageView6;
 
-    private String imagePath1;
-    private String imagePath2;
-    private String imagePath3;
-    private String imagePath4;
-    private String imagePath5;
-    private String imagePath6;
+    private String imagePath1="";
+    private String imagePath2="";
+    private String imagePath3="";
+    private String imagePath4="";
+    private String imagePath5="";
+    private String imagePath6="";
 
     private Uri downloadUri;
 
@@ -223,60 +223,66 @@ public class NewGallery extends AppCompatActivity {
         Gallery_fee.setText("");
 
         String tokenID = FirebaseInstanceId.getInstance().getToken();
-        mReference = mDatabase.getReference("OwnerProfile/"+tokenID+"/MyGallerys/"+G_location_from_list[0]);
-        mReference.child(G_name).setValue(G_name);
+        mReference = mDatabase.getReference("OwnerProfile/"+tokenID+"/MyGallerys/"+G_name);
+        mReference.child("My_Gallery_name").setValue(G_name);
+        mReference.child("My_Gallery_location").setValue(G_location_from_list[0]);
 
+
+        if(!imagePath1.equals("")){
         upload_img(imagePath1);
+        }
+        if(!imagePath2.equals("")){
         upload_img(imagePath2);
-        upload_img(imagePath3);
-        upload_img(imagePath4);
-        upload_img(imagePath5);
-        upload_img(imagePath6);
-
+        }
+        if(!imagePath3.equals("")){
+            upload_img(imagePath3);
+        }
+        if(!imagePath4.equals("")){
+            upload_img(imagePath4);
+        }
+        if(!imagePath5.equals("")){
+            upload_img(imagePath5);
+        }
+        if(!imagePath6.equals("")){
+            upload_img(imagePath6);
+        }
         Toast.makeText(getApplicationContext(), "갤러리 등록중입니다... 기다려주세요...", Toast.LENGTH_SHORT).show();
 
     }
 
-
-
-   /* public void Pic_pictures(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-
-        startActivityForResult(intent,GALLERY_CODE);
-    }*/
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == GALLERY_CODE1){
+        if(data != null){
+            if(requestCode == GALLERY_CODE1){
             imagePath1 = getPath(data.getData());
             File f = new File(imagePath1);
             imageView1.setImageURI(Uri.fromFile(f));
-        }
-        if(requestCode == GALLERY_CODE2){
-            imagePath2 = getPath(data.getData());
-            File f = new File(imagePath2);
-            imageView2.setImageURI(Uri.fromFile(f));
-        }
-        if(requestCode == GALLERY_CODE3){
-            imagePath3 = getPath(data.getData());
-            File f = new File(imagePath3);
-            imageView3.setImageURI(Uri.fromFile(f));
-        }
-        if(requestCode == GALLERY_CODE4){
-            imagePath4 = getPath(data.getData());
-            File f = new File(imagePath4);
-            imageView4.setImageURI(Uri.fromFile(f));
-        }
-        if(requestCode == GALLERY_CODE5){
-            imagePath5 = getPath(data.getData());
-            File f = new File(imagePath5);
-            imageView5.setImageURI(Uri.fromFile(f));
-        }
-        if(requestCode == GALLERY_CODE6){
-            imagePath6 = getPath(data.getData());
-            File f = new File(imagePath6);
-            imageView6.setImageURI(Uri.fromFile(f));
+            }
+            if(requestCode == GALLERY_CODE2){
+                imagePath2 = getPath(data.getData());
+                File f = new File(imagePath2);
+                imageView2.setImageURI(Uri.fromFile(f));
+            }
+            if(requestCode == GALLERY_CODE3){
+                imagePath3 = getPath(data.getData());
+                File f = new File(imagePath3);
+                imageView3.setImageURI(Uri.fromFile(f));
+            }
+            if(requestCode == GALLERY_CODE4){
+                imagePath4 = getPath(data.getData());
+                File f = new File(imagePath4);
+                imageView4.setImageURI(Uri.fromFile(f));
+            }
+            if(requestCode == GALLERY_CODE5){
+                imagePath5 = getPath(data.getData());
+                File f = new File(imagePath5);
+                imageView5.setImageURI(Uri.fromFile(f));
+            }
+            if(requestCode == GALLERY_CODE6){
+                imagePath6 = getPath(data.getData());
+                File f = new File(imagePath6);
+                imageView6.setImageURI(Uri.fromFile(f));
+            }
         }
     }
     public String getPath(Uri uri){
@@ -326,6 +332,11 @@ public class NewGallery extends AppCompatActivity {
                                 downloadUri = task.getResult();
                                 mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
                                 mReference.child("01").setValue(downloadUri.toString());
+
+                                String tokenID = FirebaseInstanceId.getInstance().getToken();
+                                mReference = mDatabase.getReference("OwnerProfile/"+tokenID+"/MyGallerys/"+G_name);
+                                mReference.child("My_Gallery_img").setValue(downloadUri.toString());
+
                             }else if(uri.equals(imagePath2)){
                                 downloadUri = task.getResult();
                                 mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");

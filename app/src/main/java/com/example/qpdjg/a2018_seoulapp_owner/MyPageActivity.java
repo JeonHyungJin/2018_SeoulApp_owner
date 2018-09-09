@@ -26,6 +26,7 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private Button EnterNewGallery_button;
+    private Button MyGallerys_info_button;
     private TextView textivewDelete;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mReference = mDatabase.getReference();
@@ -38,6 +39,7 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         EnterNewGallery_button = (Button) findViewById(R.id.EnterNewGallery);
+        MyGallerys_info_button = (Button)findViewById(R.id.MyGallery_info_button);
         textivewDelete = (TextView) findViewById(R.id.textviewDelete);
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -54,12 +56,19 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         buttonLogout.setOnClickListener(this);
         textivewDelete.setOnClickListener(this);
         EnterNewGallery_button.setOnClickListener(this);
+        MyGallerys_info_button.setOnClickListener(this);
     }
 
 
 
     @Override
     public void onClick(View view) {
+
+        if(view == MyGallerys_info_button){
+            System.out.println("시발");
+            startActivity(new Intent(this, MyGallerys.class));
+
+        }
 
         if(view == EnterNewGallery_button){
 

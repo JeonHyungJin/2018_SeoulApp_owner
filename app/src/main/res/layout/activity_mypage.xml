@@ -34,6 +34,12 @@
             android:text="새로운 갤러리 등록하기" />
 
         <Button
+            android:id="@+id/MyGallery_info_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="나의 갤러리 관리" />
+
+        <Button
             android:id="@+id/buttonLogout"
             android:text="로그아웃"
             android:layout_gravity="center_horizontal"
