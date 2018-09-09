@@ -66,6 +66,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             String password = editTextPassword.getText().toString().trim();
             String password_confirm = editTextPassword_confirm.getText().toString().trim();
             String tokenID = FirebaseInstanceId.getInstance().getToken();
+            int index = email.indexOf("@");
+            String save_email = email.substring(0,index);
             //        mReference.child("message").push().setValue("2");
             mReference = mDatabase.getReference("OwnerProfile");
             if(!TextUtils.isEmpty(tokenID)) {
@@ -73,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 profileData.firebaseKey = tokenID;
                 profileData.UserName = editTextName.getText().toString().trim();
                 profileData.E_mail = email;
-                mReference.child(tokenID).setValue(profileData);
+                mReference.child(save_email).setValue(profileData);
             }
             if(!(password.equals(password_confirm))){
                 Toast.makeText(this,"Password가 일치 하지 않습니다.", Toast.LENGTH_SHORT).show();

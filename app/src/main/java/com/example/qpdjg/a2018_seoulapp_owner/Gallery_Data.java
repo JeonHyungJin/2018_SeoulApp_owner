@@ -9,4 +9,5 @@ public class Gallery_Data {
     public String Gallery_location;
     public String Gallery_time;
     public String Gallery_fee;
+    public String Gallery_owner_email;
 }

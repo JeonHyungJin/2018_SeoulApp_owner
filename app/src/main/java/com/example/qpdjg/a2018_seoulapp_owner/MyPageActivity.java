@@ -82,8 +82,11 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         }
         //회원탈퇴를 클릭하면 회원정보를 삭제한다. 삭제전에 컨펌창을 하나 띄워야 겠다.
         if(view == textivewDelete) {
-            String tokenID = FirebaseInstanceId.getInstance().getToken();
-            mReference = mDatabase.getReference("OwnerProfile/"+tokenID);
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            String email = user.getEmail();
+            int index = email.indexOf("@");
+            String save_email = email.substring(0,index);
+            mReference = mDatabase.getReference("OwnerProfile/"+save_email);
             AlertDialog.Builder alert_confirm = new AlertDialog.Builder(MyPageActivity.this);
             alert_confirm.setMessage("정말 계정을 삭제 할까요?").setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override

@@ -23,7 +23,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".FindActivity" />
         <activity android:name=".NewGallery" />
-        <activity android:name=".MyGallerys"></activity>
+        <activity android:name=".MyGallerys" />
+        <activity android:name=".Detail_Gallery"></activity>
     </application>
 
 </manifest>

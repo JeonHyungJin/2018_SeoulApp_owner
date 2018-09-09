@@ -1,5 +1,6 @@
 package com.example.qpdjg.a2018_seoulapp_owner;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,26 +31,31 @@ public class MyGallerys extends AppCompatActivity {
     private List<My_gallery_read_data> my_gallery_read_datas = new ArrayList<>();
     private List<String>uidLists = new ArrayList<>();
     private FirebaseDatabase database;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_gallerys);
         database = FirebaseDatabase.getInstance();
-        String tokenID = FirebaseInstanceId.getInstance().getToken();
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String email = user.getEmail();
+        int index = email.indexOf("@");
+        String save_email = email.substring(0,index);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final BoardRecylcerViewAdapter boardRecylcerViewAdapter = new BoardRecylcerViewAdapter();
         recyclerView.setAdapter(boardRecylcerViewAdapter);
 
-        database.getReference().child("OwnerProfile/"+tokenID+"/MyGallerys").addValueEventListener(new ValueEventListener() {
+        database.getReference().child("OwnerProfile/"+save_email+"/MyGallerys").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 my_gallery_read_datas.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     My_gallery_read_data my_gallery_read_data = snapshot.getValue(My_gallery_read_data.class);
-                    System.out.println(my_gallery_read_data.My_Gallery_name);
+                    //System.out.println(my_gallery_read_data.My_Gallery_name);
                     my_gallery_read_datas.add(my_gallery_read_data);
                 }
                 boardRecylcerViewAdapter.notifyDataSetChanged();
@@ -95,7 +103,10 @@ public class MyGallerys extends AppCompatActivity {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        System.out.println("시발");
+                        Intent intent = new Intent(view.getContext(),Detail_Gallery.class);
+                        intent.putExtra("Location",textView2.getText().toString());
+                        intent.putExtra("Name",textView.getText().toString());
+                        startActivity(intent);
                     }
                 });
             }
