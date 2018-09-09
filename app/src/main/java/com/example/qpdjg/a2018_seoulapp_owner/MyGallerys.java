@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -71,8 +73,8 @@ public class MyGallerys extends AppCompatActivity {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ((CustomViewHolder)holder).textView.setText(my_gallery_read_datas.get(position).My_Gallery_name);
-            //((CustomViewHolder)holder)..setText(my_gallery_read_datas.get(position).Gallery_name);
-
+            ((CustomViewHolder)holder).textView2.setText(my_gallery_read_datas.get(position).My_Gallery_location);
+            Glide.with(holder.itemView.getContext()).load(my_gallery_read_datas.get(position).My_Gallery_img).into(((CustomViewHolder)holder).imageView);
         }
 
         @Override
@@ -83,10 +85,19 @@ public class MyGallerys extends AppCompatActivity {
         private class CustomViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
             TextView textView;
+            TextView textView2;
             public CustomViewHolder(View view) {
                 super(view);
                 imageView = (ImageView) view.findViewById(R.id.MyGallery_imageView);
                 textView = (TextView)view.findViewById(R.id.MyGallery_Name);
+                textView2 = (TextView)view.findViewById(R.id.MyGallery_Location);
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println("시발");
+                    }
+                });
             }
         }
     }
