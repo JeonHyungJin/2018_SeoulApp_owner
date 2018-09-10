@@ -349,6 +349,9 @@ public class NewGallery extends AppCompatActivity {
                                 mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
                                 mReference.child("01").setValue(downloadUri.toString());
 
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name);
+                                mReference.child("Main_img").setValue(downloadUri.toString());
+
                                 mReference = mDatabase.getReference("OwnerProfile/"+save_email+"/MyGallerys/"+G_name);
                                 mReference.child("My_Gallery_img").setValue(downloadUri.toString());
 

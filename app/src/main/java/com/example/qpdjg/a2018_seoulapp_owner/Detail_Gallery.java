@@ -145,6 +145,9 @@ public class Detail_Gallery extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        spinner.setEnabled(false);
+        spinner.setAlpha(0.5f);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -208,9 +211,6 @@ public class Detail_Gallery extends AppCompatActivity {
         };
         category_Ref.addListenerForSingleValueEvent(valueEventListener);
 
-
-
-/*
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,7 +264,7 @@ public class Detail_Gallery extends AppCompatActivity {
                 startActivityForResult(intent,GALLERY_CODE6);
             }
         });
-        */
+
 
     }
 
@@ -418,6 +418,9 @@ public class Detail_Gallery extends AppCompatActivity {
                                 downloadUri = task.getResult();
                                 mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name+"/Gallery_imgs");
                                 mReference.child("01").setValue(downloadUri.toString());
+
+                                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+G_name);
+                                mReference.child("Main_img").setValue(downloadUri.toString());
 
                                 mReference = mDatabase.getReference("OwnerProfile/"+save_email+"/MyGallerys/"+G_name);
                                 mReference.child("My_Gallery_img").setValue(downloadUri.toString());

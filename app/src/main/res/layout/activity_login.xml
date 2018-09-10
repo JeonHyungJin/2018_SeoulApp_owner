@@ -6,60 +6,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#7ab9fd"
+    android:background="@drawable/back_main"
     tools:context=".SignUpActivity">
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:textSize="23dp"
-        android:textColor="@color/colorAccent"
-        android:text="로그인" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/logo" />
+
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center_horizontal"
-        android:hint="Enter email"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_back"
+        android:hint="   ID"
         android:inputType="textEmailAddress" />
+
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="250dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Enter password"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_back"
+        android:hint=" PASSWORD"
         android:inputType="textPassword" />
-    <Button
+
+    <ImageButton
         android:id="@+id/buttonSignup"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_button"
         android:text="로그인" />
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:text="신규 회원가입"
+
+        <ImageButton
             android:id="@+id/textViewSignin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="패스워드가 기억나지 않습니까?"
-            android:textColor="@color/colorAccent"
-            android:layout_marginLeft="16dp"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:background="@drawable/signup_button"
+            android:text="신규 회원가입" />
+
+        <ImageButton
             android:id="@+id/textViewFindpassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/find_pw_button"
+            android:text="패스워드가 기억나지 않습니까?" />
     </LinearLayout>
     <TextView
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
         android:id="@+id/textviewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
