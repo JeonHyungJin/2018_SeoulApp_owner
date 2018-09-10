@@ -12,19 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyPageActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".FindActivity" />
-        <activity android:name=".NewGallery" />
-        <activity android:name=".MyGallerys" />
-        <activity android:name=".Detail_Gallery"></activity>
+        <activity android:name=".Activitys.MyPageActivity" />
+        <activity android:name=".Activitys.SignUpActivity" />
+        <activity android:name=".Activitys.FindActivity" />
+        <activity android:name=".Activitys.NewGallery" />
+        <activity android:name=".Activitys.MyGallerys" />
+        <activity android:name=".Activitys.Detail_Gallery"></activity>
     </application>
 
 </manifest>

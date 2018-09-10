@@ -1,4 +1,4 @@
-package com.example.qpdjg.a2018_seoulapp_owner;
+package com.example.qpdjg.a2018_seoulapp_owner.Util_Data;
 
 public class Gallery_Data {
     public String Gallery_name;

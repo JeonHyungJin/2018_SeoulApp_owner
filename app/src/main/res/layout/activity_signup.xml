@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+    tools:context=".Activitys.SignUpActivity">
 
     <TextView
         android:layout_gravity="center_horizontal"

@@ -1,8 +1,6 @@
-package com.example.qpdjg.a2018_seoulapp_owner;
+package com.example.qpdjg.a2018_seoulapp_owner.Activitys;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.CursorLoader;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,10 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.example.qpdjg.a2018_seoulapp_owner.R;
+import com.example.qpdjg.a2018_seoulapp_owner.Util_Data.Gallery_Data;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,23 +29,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Detail_Gallery extends AppCompatActivity {
+public class NewGallery extends AppCompatActivity {
+
     Spinner spinner;
     String[] Gallery_locations_list;
-    TextView Gallery_name;
+    EditText Gallery_name;
     EditText Gallery_explain;
     EditText Owner_explain;
     EditText Owner_insta;
@@ -64,7 +57,7 @@ public class Detail_Gallery extends AppCompatActivity {
     String G_location;
     String G_time;
     String G_fee;
-    Button Delete_Button;
+    Button Pic_button;
     private static final int GALLERY_CODE1 = 10;
     private static final int GALLERY_CODE2 = 11;
     private static final int GALLERY_CODE3 = 12;
@@ -89,26 +82,15 @@ public class Detail_Gallery extends AppCompatActivity {
 
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mReference = mDatabase.getReference();
-    private DatabaseReference GReference = mDatabase.getReference();
     private FirebaseStorage storage;
     private FirebaseAuth firebaseAuth;
     String save_email;
     String email;
-    String Detail_Loc;
-    String Detail_Name;
-
-    private List<String> img_lists = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail__gallery);
-
-        Intent intent=getIntent();
-        Detail_Loc = intent.getExtras().getString("Location");
-        Detail_Name = intent.getExtras().getString("Name");
-
-        Toast.makeText(this,"사진 로드까지 시간이 소요됩니다. 기다려주세요...",Toast.LENGTH_LONG).show();
+        setContentView(R.layout.activity_new_gallery);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
@@ -120,7 +102,7 @@ public class Detail_Gallery extends AppCompatActivity {
         save_email = email.substring(0,index);
 
         storage = FirebaseStorage.getInstance();
-        Gallery_name = (TextView)findViewById(R.id.Gallery_name);
+        Gallery_name = (EditText)findViewById(R.id.Gallery_name);
         Gallery_explain= (EditText)findViewById(R.id.Gallery_explain);
         Owner_explain= (EditText)findViewById(R.id.Owner_explain);
         Owner_insta= (EditText)findViewById(R.id.Owner_insta);
@@ -134,7 +116,7 @@ public class Detail_Gallery extends AppCompatActivity {
         imageView4 = (ImageView)findViewById(R.id.imageView4);
         imageView5 = (ImageView)findViewById(R.id.imageView5);
         imageView6 = (ImageView)findViewById(R.id.imageView6);
-        Delete_Button = (Button)findViewById(R.id.delete_button);
+
 
         G_location_from_list = new String[1];
 
@@ -144,9 +126,6 @@ public class Detail_Gallery extends AppCompatActivity {
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.locations,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-        spinner.setEnabled(false);
-        spinner.setAlpha(0.5f);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -162,54 +141,6 @@ public class Detail_Gallery extends AppCompatActivity {
 
         });
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference Gal_Ref = rootRef.child("Gallerys");
-        DatabaseReference category_Ref = Gal_Ref.child(Detail_Loc);
-        //DatabaseReference real_Gal_Ref = category_Ref.child(Detail_Name);
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if(Detail_Name.equals(ds.getKey().toString())){
-                        Gallery_name.setText(ds.child("Gallery_name").getValue().toString());
-                        Gallery_explain.setText(ds.child("Gallery_explain").getValue().toString());
-                        Owner_explain.setText(ds.child("Owner_explain").getValue().toString());
-                        Owner_insta.setText(ds.child("Owner_insta").getValue().toString());
-                        Gallery_location.setText(ds.child("Gallery_location").getValue().toString());
-                        Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
-                        Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
-
-                        if(ds.child("Gallery_imgs").hasChild("01")){
-                            img_lists.add(ds.child("Gallery_imgs").child("01").getValue().toString());
-                        }
-                        if(ds.child("Gallery_imgs").hasChild("02")){
-                            img_lists.add(ds.child("Gallery_imgs").child("02").getValue().toString());
-                        }
-                        if(ds.child("Gallery_imgs").hasChild("03")){
-                            img_lists.add(ds.child("Gallery_imgs").child("03").getValue().toString());
-                        }
-                        if(ds.child("Gallery_imgs").hasChild("04")){
-                            img_lists.add(ds.child("Gallery_imgs").child("04").getValue().toString());
-                        }
-                        if(ds.child("Gallery_imgs").hasChild("05")){
-                            img_lists.add(ds.child("Gallery_imgs").child("05").getValue().toString());
-                        }
-                        if(ds.child("Gallery_imgs").hasChild("06")){
-                            img_lists.add(ds.child("Gallery_imgs").child("06").getValue().toString());
-                        }
-                        push_imgs(img_lists);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        category_Ref.addListenerForSingleValueEvent(valueEventListener);
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,7 +196,6 @@ public class Detail_Gallery extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void submit_new_Gallery(View view) {
@@ -302,22 +232,24 @@ public class Detail_Gallery extends AppCompatActivity {
 
         mReference.child(G_name).setValue(gallery_data);
 
+        Gallery_name.setText("");
+        Gallery_explain.setText("");
+        Owner_explain.setText("");
+        Owner_insta.setText("");
+        Gallery_location.setText("");
+        Gallery_time.setText("");
+        Gallery_fee.setText("");
+
         mReference = mDatabase.getReference("OwnerProfile/"+save_email+"/MyGallerys/"+G_name);
         mReference.child("My_Gallery_name").setValue(G_name);
         mReference.child("My_Gallery_location").setValue(G_location_from_list[0]);
 
-        for(int i = 0; i<img_lists.size();i++){
-            mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+Detail_Name+"/Gallery_imgs");
-            int j = i+1;
-            mReference.child("0"+j).setValue(img_lists.get(i));
-        }
-
 
         if(!imagePath1.equals("")){
-            upload_img(imagePath1);
+        upload_img(imagePath1);
         }
         if(!imagePath2.equals("")){
-            upload_img(imagePath2);
+        upload_img(imagePath2);
         }
         if(!imagePath3.equals("")){
             upload_img(imagePath3);
@@ -335,14 +267,13 @@ public class Detail_Gallery extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(data != null){
             if(requestCode == GALLERY_CODE1){
-                imagePath1 = getPath(data.getData());
-                File f = new File(imagePath1);
-                imageView1.setImageURI(Uri.fromFile(f));
+            imagePath1 = getPath(data.getData());
+            File f = new File(imagePath1);
+            imageView1.setImageURI(Uri.fromFile(f));
             }
             if(requestCode == GALLERY_CODE2){
                 imagePath2 = getPath(data.getData());
@@ -447,7 +378,7 @@ public class Detail_Gallery extends AppCompatActivity {
                                 mReference.child("06").setValue(downloadUri.toString());
                             }
                             Toast.makeText(getApplicationContext(), "갤러리 등록이 완료 되었습니다. 사용자 어플에서 확인해보세요.", Toast.LENGTH_LONG).show();
-
+                            finish();
                         } else {
                             // Handle failures
                             // ...
@@ -457,64 +388,5 @@ public class Detail_Gallery extends AppCompatActivity {
             }
         });
 
-    }
-    public void push_imgs(List img_list){
-        try{
-        if(img_list.get(0) != null){
-            Glide.with(this).load(img_list.get(0)).into(imageView1);
-        }
-        if(img_list.get(1) != null){
-            Glide.with(this).load(img_list.get(1)).into(imageView2);
-        }
-        if(img_list.get(2) != null){
-            Glide.with(this).load(img_list.get(2)).into(imageView3);
-        }
-        if(img_list.get(3) != null){
-            Glide.with(this).load(img_list.get(3)).into(imageView4);
-        }
-        if(img_list.get(4) != null){
-            Glide.with(this).load(img_list.get(4)).into(imageView5);
-        }
-        if(img_list.get(5) != null){
-            Glide.with(this).load(img_list.get(5)).into(imageView6);
-        }
-        }catch (Exception e){
-
-        }
-    }
-
-    public void delete_Gallery(View view) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        String email = user.getEmail();
-        int index = email.indexOf("@");
-        String save_email = email.substring(0,index);
-        mReference = mDatabase.getReference("OwnerProfile/"+save_email+"/MyGallerys/"+Detail_Name);
-        GReference = mDatabase.getReference("Gallerys/"+Detail_Loc+"/"+Detail_Name);
-
-        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(this);
-        alert_confirm.setMessage("정말 갤러리를 삭제 할까요?").setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        mReference.removeValue();
-                        GReference.removeValue();
-                        user.delete()
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        finish();
-                                        startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
-                                    }
-                                });
-                    }
-                }
-        );
-        alert_confirm.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        alert_confirm.show();
     }
 }

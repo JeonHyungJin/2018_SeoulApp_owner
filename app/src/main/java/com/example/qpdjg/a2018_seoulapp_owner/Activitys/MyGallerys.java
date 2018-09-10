@@ -1,4 +1,4 @@
-package com.example.qpdjg.a2018_seoulapp_owner;
+package com.example.qpdjg.a2018_seoulapp_owner.Activitys;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,16 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.qpdjg.a2018_seoulapp_owner.R;
+import com.example.qpdjg.a2018_seoulapp_owner.Util_Data.My_gallery_read_data;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
