@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,10 +25,10 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth firebaseAuth;
     //view objects
     private TextView textViewUserEmail;
-    private Button buttonLogout;
-    private Button EnterNewGallery_button;
-    private Button MyGallerys_info_button;
-    private TextView textivewDelete;
+    private ImageButton buttonLogout;
+    private ImageButton EnterNewGallery_button;
+    private ImageButton MyGallerys_info_button;
+    private ImageButton textivewDelete;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mReference = mDatabase.getReference();
 
@@ -37,10 +38,10 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_mypage);
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textviewUserEmail);
-        buttonLogout = (Button) findViewById(R.id.buttonLogout);
-        EnterNewGallery_button = (Button) findViewById(R.id.EnterNewGallery);
-        MyGallerys_info_button = (Button)findViewById(R.id.MyGallery_info_button);
-        textivewDelete = (TextView) findViewById(R.id.textviewDelete);
+        buttonLogout = (ImageButton) findViewById(R.id.buttonLogout);
+        EnterNewGallery_button = (ImageButton) findViewById(R.id.EnterNewGallery);
+        MyGallerys_info_button = (ImageButton)findViewById(R.id.MyGallery_info_button);
+        textivewDelete = (ImageButton) findViewById(R.id.textviewDelete);
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
@@ -51,7 +52,7 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
         //유저가 있다면, null이 아니면 계속 진행
         FirebaseUser user = firebaseAuth.getCurrentUser();
         //textViewUserEmail의 내용을 변경해 준다.
-        textViewUserEmail.setText("반갑습니다.\n"+ user.getEmail()+"으로 로그인 하였습니다.");
+        textViewUserEmail.setText("반갑습니다. "+ user.getEmail()+"님\n오늘도 행복한 하루!");
         //logout button event
         buttonLogout.setOnClickListener(this);
         textivewDelete.setOnClickListener(this);
@@ -99,7 +100,7 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Toast.makeText(MyPageActivity.this, "계정이 삭제 되었습니다.", Toast.LENGTH_LONG).show();
                                             finish();
-                                            startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                         }
                                     });
                         }

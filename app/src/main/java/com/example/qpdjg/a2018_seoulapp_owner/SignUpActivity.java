@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,10 +30,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText editTextPassword;
     EditText editTextPassword_confirm;
     EditText editTextName;
-    Button buttonSignup;
+    ImageButton buttonSignup;
     TextView textviewSingin;
     TextView textviewMessage;
     ProgressDialog progressDialog;
+    CheckBox checkBox_forEnter;
     //define firebase object
     FirebaseAuth firebaseAuth;
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -52,8 +55,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTextPassword_confirm = findViewById(R.id.editTextPassword_confirm);
             textviewSingin= (TextView) findViewById(R.id.textViewSignin);
             textviewMessage = (TextView) findViewById(R.id.textviewMessage);
-            buttonSignup = (Button) findViewById(R.id.buttonSignup);
+            buttonSignup = (ImageButton) findViewById(R.id.buttonSignup);
             editTextName = findViewById(R.id.editTextName);
+            checkBox_forEnter = (CheckBox)findViewById(R.id.checkBox_forEnter);
             progressDialog = new ProgressDialog(this);
             //button click event
             buttonSignup.setOnClickListener(this);
@@ -61,6 +65,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
         //Firebse creating a new user
         private void registerUser(){
+            if(checkBox_forEnter.isChecked()) {
+
+            }
+            else{
+                Toast.makeText(this,"약관에 동의해 주세요.",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             //사용자가 입력하는 email, password를 가져온다.
             String email = editTextEmail.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
@@ -89,6 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
             if(TextUtils.isEmpty(password)){
                 Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                return;
             }
             //email과 password가 제대로 입력되어 있다면 계속 진행된다.
             progressDialog.setMessage("등록중입니다. 기다려 주세요...");
