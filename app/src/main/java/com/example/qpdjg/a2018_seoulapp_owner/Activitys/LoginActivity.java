@@ -2,6 +2,8 @@ package com.example.qpdjg.a2018_seoulapp_owner.Activitys;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +34,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getWindow().setStatusBarColor(Color.parseColor("#321c54"));
+        }
+
+
         //initializig firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null){

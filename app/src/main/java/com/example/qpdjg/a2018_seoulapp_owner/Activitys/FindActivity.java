@@ -2,6 +2,8 @@ package com.example.qpdjg.a2018_seoulapp_owner.Activitys;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,12 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getWindow().setStatusBarColor(Color.parseColor("#321c54"));
+        }
+
         editTextUserEmail = (EditText) findViewById(R.id.editTextUserEmail);
         buttonFind = (Button) findViewById(R.id.buttonFind);
         progressDialog = new ProgressDialog(this);

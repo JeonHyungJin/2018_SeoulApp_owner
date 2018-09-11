@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -104,6 +105,11 @@ public class Detail_Gallery extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail__gallery);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getWindow().setStatusBarColor(Color.parseColor("#321c54"));
+        }
 
         Intent intent=getIntent();
         Detail_Loc = intent.getExtras().getString("Location");

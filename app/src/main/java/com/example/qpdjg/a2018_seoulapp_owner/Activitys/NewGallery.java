@@ -3,6 +3,7 @@ package com.example.qpdjg.a2018_seoulapp_owner.Activitys;
 import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -91,6 +92,11 @@ public class NewGallery extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_gallery);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getWindow().setStatusBarColor(Color.parseColor("#321c54"));
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
