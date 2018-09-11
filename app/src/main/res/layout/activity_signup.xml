@@ -142,18 +142,26 @@
             android:inputType="textPassword" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView14"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_back"
-            android:gravity="center_vertical"
-            android:text="약관내용"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:layout_margin="15dp"
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_back"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            </LinearLayout>
+        </ScrollView>
 
         <CheckBox
             android:id="@+id/checkBox_forEnter"

@@ -37,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     ImageButton buttonSignup;
     TextView textviewSingin;
     TextView textviewMessage;
+    TextView promise_text;
     ProgressDialog progressDialog;
     CheckBox checkBox_forEnter;
     //define firebase object
@@ -69,6 +70,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTextName = findViewById(R.id.editTextName);
             checkBox_forEnter = (CheckBox)findViewById(R.id.checkBox_forEnter);
             progressDialog = new ProgressDialog(this);
+            promise_text = (TextView)findViewById(R.id.textView14) ;
+
+            promise_text.setText("[수집하는 개인정보의 항목]\n" +
+                    "회사는 회원가입의 서비스를 제공하기 위해 아래와 같은 개인정보를 수집하고 있습니다.\n" +
+                    "1. 필수입력정보\n" +
+                    "이름, 아이디, 비밀번호, 휴대전화, 이메일\n" +
+                    "[개인정보 수집 목적]\n" +
+                    "1. 회원가입을 위한 본인확인 및 개인식별");
             //button click event
             buttonSignup.setOnClickListener(this);
             textviewSingin.setOnClickListener(this);
