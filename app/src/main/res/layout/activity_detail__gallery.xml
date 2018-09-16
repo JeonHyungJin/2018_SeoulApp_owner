@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="나의 갤러리 관리"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <HorizontalScrollView

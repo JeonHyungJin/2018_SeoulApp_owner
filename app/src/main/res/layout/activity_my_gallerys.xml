@@ -15,8 +15,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
+        android:gravity="center"
         android:inputType="textPersonName"
-        android:text="나의 갤러리 관리"
+        android:text="내가 등록한 갤러리"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

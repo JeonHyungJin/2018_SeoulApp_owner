@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.qpdjg.a2018_seoulapp_owner.R;
 import com.example.qpdjg.a2018_seoulapp_owner.Util_Data.Gallery_Data;
+import com.example.qpdjg.a2018_seoulapp_owner.Util_Data.comment_data;
+import com.example.qpdjg.a2018_seoulapp_owner.Util_Data.starstar;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,7 +47,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class Detail_Gallery extends AppCompatActivity {
     Spinner spinner;
@@ -56,6 +61,7 @@ public class Detail_Gallery extends AppCompatActivity {
     EditText Owner_insta;
     EditText Gallery_location;
     EditText Gallery_time;
+    TextView welcome_text;
     EditText Gallery_fee;
     Button submit_button;
     String[] G_location_from_list;
@@ -99,6 +105,11 @@ public class Detail_Gallery extends AppCompatActivity {
     String Detail_Loc;
     String Detail_Name;
 
+    public int starCount = 0;
+    private FirebaseAuth auth;
+    public List<String> star_list = new ArrayList<String>();
+    public List<String> commeter_list = new ArrayList<String>();
+    public List<comment_data> Comments_list = new ArrayList<comment_data>();
     private List<String> img_lists = new ArrayList<String>();
 
     @Override
@@ -127,6 +138,7 @@ public class Detail_Gallery extends AppCompatActivity {
         save_email = email.substring(0,index);
 
         storage = FirebaseStorage.getInstance();
+        welcome_text = (TextView)findViewById(R.id.textView7);
         Gallery_name = (TextView)findViewById(R.id.Gallery_name);
         Gallery_explain= (EditText)findViewById(R.id.Gallery_explain);
         Owner_explain= (EditText)findViewById(R.id.Owner_explain);
@@ -143,6 +155,8 @@ public class Detail_Gallery extends AppCompatActivity {
         imageView6 = (ImageView)findViewById(R.id.imageView6);
         Delete_Button = (Button)findViewById(R.id.delete_button);
 
+        submit_button.setText(Detail_Name +" 갤러리 정보 수정");
+        Delete_Button.setText(Detail_Name + " 갤러리 정보 삭제");
         G_location_from_list = new String[1];
 
         Gallery_locations_list = new String[]{"강서구", "마포구", "영등포구", "양천구", "구로구", "금천구", "관악구", "동작구", "용산구", "서초구", "강남구", "송파구", "강동구", "광진구", "성동구", "중구", "용산구", "서대문구", "은평구", "종로구", "성북수", "동대문구", "중랑구", "강북구", "노원구", "도봉구"};
@@ -169,6 +183,36 @@ public class Detail_Gallery extends AppCompatActivity {
 
         });
 
+        DatabaseReference rootRef2 = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference Gal_Ref2 = rootRef2.child("Gallerys");
+        DatabaseReference category_Ref2 = Gal_Ref2.child(Detail_Loc);
+
+        ValueEventListener valueEventListener2 = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if(Detail_Name.equals(ds.getKey().toString())){
+                        starCount = Integer.parseInt(ds.child("starCount").getValue().toString());
+
+                        for (DataSnapshot ds2 : ds.child("Comments").getChildren()) {
+                            Comments_list.add(ds2.getValue(comment_data.class));
+                            commeter_list.add(ds2.getKey());
+                        }
+
+                        for (DataSnapshot ds2 : ds.child("stars").getChildren()) {
+                            star_list.add(Boolean.toString((Boolean) ds2.getValue()));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+        category_Ref2.addListenerForSingleValueEvent(valueEventListener2);
+
+
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference Gal_Ref = rootRef.child("Gallerys");
         DatabaseReference category_Ref = Gal_Ref.child(Detail_Loc);
@@ -187,7 +231,7 @@ public class Detail_Gallery extends AppCompatActivity {
                         Gallery_location.setText(ds.child("Gallery_location").getValue().toString());
                         Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
                         Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
-
+                        welcome_text.setText(Detail_Name + " 갤러리 관리 페이지");
                         if(ds.child("Gallery_imgs").hasChild("01")){
                             img_lists.add(ds.child("Gallery_imgs").child("01").getValue().toString());
                         }
@@ -300,6 +344,7 @@ public class Detail_Gallery extends AppCompatActivity {
         gallery_data.Gallery_location = G_location;
         gallery_data.Gallery_time = G_time;
         gallery_data.Gallery_fee = G_fee;
+        gallery_data.starCount = starCount;
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -317,8 +362,22 @@ public class Detail_Gallery extends AppCompatActivity {
             mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+Detail_Name+"/Gallery_imgs");
             int j = i+1;
             mReference.child("0"+j).setValue(img_lists.get(i));
+            if(i == 0 ){
+                mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+Detail_Name);
+                mReference.child("Main_img").setValue(img_lists.get(i));
+            }
         }
 
+        for(int i = 0; i<Comments_list.size();i++){
+            mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+Detail_Name+"/Comments");
+            mReference.child(commeter_list.get(i)).setValue(Comments_list.get(i));
+        }
+
+        for(int i = 0; i<star_list.size();i++){
+            mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+Detail_Name+"/stars");
+            auth = FirebaseAuth.getInstance();
+            mReference.child(auth.getCurrentUser().getUid()).setValue(Boolean.valueOf(star_list.get(i)));
+        }
 
         if(!imagePath1.equals("")){
             upload_img(imagePath1);

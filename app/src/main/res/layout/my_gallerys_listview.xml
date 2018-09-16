@@ -12,9 +12,10 @@
 
     <ImageView
         android:id="@+id/MyGallery_imageView"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
         android:layout_weight="1"
+        android:layout_margin="10dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
 
     <LinearLayout
@@ -29,6 +30,7 @@
             android:layout_height="49dp"
             android:layout_weight="1"
             android:text="TextView"
+            android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -36,8 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
 </LinearLayout>
