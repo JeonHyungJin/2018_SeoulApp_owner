@@ -107,6 +107,7 @@ public class Detail_Gallery extends AppCompatActivity {
 
     public int starCount = 0;
     private FirebaseAuth auth;
+    public List<String> star_uid_list = new ArrayList<String>();
     public List<String> star_list = new ArrayList<String>();
     public List<String> commeter_list = new ArrayList<String>();
     public List<comment_data> Comments_list = new ArrayList<comment_data>();
@@ -200,6 +201,7 @@ public class Detail_Gallery extends AppCompatActivity {
                         }
 
                         for (DataSnapshot ds2 : ds.child("stars").getChildren()) {
+                            star_uid_list.add(ds2.getKey());
                             star_list.add(Boolean.toString((Boolean) ds2.getValue()));
                         }
                     }
@@ -376,7 +378,7 @@ public class Detail_Gallery extends AppCompatActivity {
         for(int i = 0; i<star_list.size();i++){
             mReference = mDatabase.getReference("Gallerys/"+G_location_from_list[0]+"/"+Detail_Name+"/stars");
             auth = FirebaseAuth.getInstance();
-            mReference.child(auth.getCurrentUser().getUid()).setValue(Boolean.valueOf(star_list.get(i)));
+            mReference.child(star_uid_list.get(i)).setValue(Boolean.valueOf(star_list.get(i)));
         }
 
         if(!imagePath1.equals("")){
