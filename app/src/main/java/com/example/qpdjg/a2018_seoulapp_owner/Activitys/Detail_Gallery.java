@@ -139,7 +139,7 @@ public class Detail_Gallery extends AppCompatActivity {
         save_email = email.substring(0,index);
 
         storage = FirebaseStorage.getInstance();
-        welcome_text = (TextView)findViewById(R.id.textView7);
+        //welcome_text = (TextView)findViewById(R.id.textView7);
         Gallery_name = (TextView)findViewById(R.id.Gallery_name);
         Gallery_explain= (EditText)findViewById(R.id.Gallery_explain);
         Owner_explain= (EditText)findViewById(R.id.Owner_explain);
@@ -233,7 +233,7 @@ public class Detail_Gallery extends AppCompatActivity {
                         Gallery_location.setText(ds.child("Gallery_location").getValue().toString());
                         Gallery_time.setText(ds.child("Gallery_time").getValue().toString());
                         Gallery_fee.setText(ds.child("Gallery_fee").getValue().toString());
-                        welcome_text.setText(Detail_Name + " 갤러리 관리 페이지");
+                        //welcome_text.setText(Detail_Name + " 갤러리 관리 페이지");
                         if(ds.child("Gallery_imgs").hasChild("01")){
                             img_lists.add(ds.child("Gallery_imgs").child("01").getValue().toString());
                         }
@@ -322,6 +322,7 @@ public class Detail_Gallery extends AppCompatActivity {
     }
 
     public void submit_new_Gallery(View view) {
+
         G_name = Gallery_name.getText().toString();
         G_explain = Gallery_explain.getText().toString();
         O_explain = Owner_explain.getText().toString();
@@ -399,8 +400,11 @@ public class Detail_Gallery extends AppCompatActivity {
         if(!imagePath6.equals("")){
             upload_img(imagePath6);
         }
-        Toast.makeText(getApplicationContext(), "갤러리 등록중입니다... 기다려주세요...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "갤러리 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
+        Intent i = new Intent(this,MyPageActivity.class);
+        finish();
+        startActivity(i);
     }
 
 

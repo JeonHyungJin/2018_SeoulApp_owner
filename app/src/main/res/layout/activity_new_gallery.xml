@@ -21,6 +21,9 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/our_color"
                 android:text="갤러리 사진등록"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -171,7 +174,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#FFFFFF"
+                android:background="#00ff0000"
                 app:srcCompat="@drawable/search_location_button" />
 
             <EditText
