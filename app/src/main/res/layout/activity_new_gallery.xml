@@ -166,12 +166,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <ImageButton
+                android:id="@+id/search_location_button"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="#FFFFFF"
+                app:srcCompat="@drawable/search_location_button" />
+
             <EditText
                 android:id="@+id/Gallery_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="갤러리의 위치를 입력하세요."
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/Gallery_location_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="상세 위치를 입력하세요."
                 android:inputType="textPersonName" />
 
             <TextView

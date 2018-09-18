@@ -17,12 +17,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.qpdjg.a2018_seoulapp_owner.R;
 import com.example.qpdjg.a2018_seoulapp_owner.Util_Data.Gallery_Data;
+import com.example.qpdjg.a2018_seoulapp_owner.WebView_for_search_location;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -58,13 +60,16 @@ public class NewGallery extends AppCompatActivity {
     String G_location;
     String G_time;
     String G_fee;
-    Button Pic_button;
+    ImageButton serach_location_button;
+    EditText Gallery_location_detail;
+
     private static final int GALLERY_CODE1 = 10;
     private static final int GALLERY_CODE2 = 11;
     private static final int GALLERY_CODE3 = 12;
     private static final int GALLERY_CODE4 = 13;
     private static final int GALLERY_CODE5 = 14;
     private static final int GALLERY_CODE6 = 15;
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
     private ImageView imageView1;
     private ImageView imageView2;
     private ImageView imageView3;
@@ -87,6 +92,7 @@ public class NewGallery extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     String save_email;
     String email;
+    private String G_location_detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +128,8 @@ public class NewGallery extends AppCompatActivity {
         imageView4 = (ImageView)findViewById(R.id.imageView4);
         imageView5 = (ImageView)findViewById(R.id.imageView5);
         imageView6 = (ImageView)findViewById(R.id.imageView6);
+        serach_location_button = (ImageButton)findViewById(R.id.search_location_button);
+        Gallery_location_detail = (EditText)findViewById(R.id.Gallery_location_detail) ;
 
 
         G_location_from_list = new String[1];
@@ -202,6 +210,14 @@ public class NewGallery extends AppCompatActivity {
             }
         });
 
+        serach_location_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NewGallery.this, WebView_for_search_location.class);
+                startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+            }
+        });
+
     }
 
     public void submit_new_Gallery(View view) {
@@ -210,6 +226,7 @@ public class NewGallery extends AppCompatActivity {
         O_explain = Owner_explain.getText().toString();
         O_insta = Owner_insta.getText().toString();
         G_location = Gallery_location.getText().toString();
+        G_location_detail = Gallery_location_detail.getText().toString();
         G_time = Gallery_time.getText().toString();
         G_fee = Gallery_fee.getText().toString();
 
@@ -226,7 +243,7 @@ public class NewGallery extends AppCompatActivity {
         gallery_data.Owner_explain = O_explain;
         gallery_data.Owner_insta = O_insta;
         gallery_data.Gallery_location_from_list=G_location_from_list[0];
-        gallery_data.Gallery_location = G_location;
+        gallery_data.Gallery_location = G_location +" "+ G_location_detail;
         gallery_data.Gallery_time = G_time;
         gallery_data.Gallery_fee = G_fee;
 
@@ -245,6 +262,7 @@ public class NewGallery extends AppCompatActivity {
         Gallery_location.setText("");
         Gallery_time.setText("");
         Gallery_fee.setText("");
+        Gallery_location_detail.setText("");
 
         mReference = mDatabase.getReference("OwnerProfile/"+save_email+"/MyGallerys/"+G_name);
         mReference.child("My_Gallery_name").setValue(G_name);
@@ -276,6 +294,19 @@ public class NewGallery extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(data != null){
+
+            if(requestCode == SEARCH_ADDRESS_ACTIVITY){
+
+                super.onActivityResult(requestCode, resultCode, data);
+
+                if(resultCode == RESULT_OK){
+
+                    String Location_from_web = data.getExtras().getString("data");
+                    if (data != null)
+                        Gallery_location.setText(Location_from_web);
+                }
+            }
+
             if(requestCode == GALLERY_CODE1){
             imagePath1 = getPath(data.getData());
             File f = new File(imagePath1);

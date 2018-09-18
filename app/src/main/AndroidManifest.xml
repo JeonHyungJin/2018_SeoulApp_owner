@@ -24,7 +24,8 @@
         <activity android:name=".Activitys.FindActivity" />
         <activity android:name=".Activitys.NewGallery" />
         <activity android:name=".Activitys.MyGallerys" />
-        <activity android:name=".Activitys.Detail_Gallery"></activity>
+        <activity android:name=".Activitys.Detail_Gallery" />
+        <activity android:name=".WebView_for_search_location"></activity>
     </application>
 
 </manifest>
