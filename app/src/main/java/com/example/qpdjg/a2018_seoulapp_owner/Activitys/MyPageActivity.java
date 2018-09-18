@@ -74,7 +74,6 @@ public class MyPageActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
 
         if(view == MyGallerys_info_button){
-            System.out.println("시발");
             startActivity(new Intent(this, MyGallerys.class));
 
         }
