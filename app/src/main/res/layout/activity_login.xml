@@ -51,20 +51,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
+        <TextView
             android:id="@+id/textViewSignin"
             android:layout_width="140dp"
             android:layout_height="50dp"
-            android:background="@drawable/signup_button"
-            android:text="신규 회원가입" />
+            android:gravity="center"
+            android:textColor="#A270B4"
+            android:text="신규 회원가입"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/textViewFindpassword"
             android:layout_width="160dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/find_pw_button"
-            android:text="패스워드가 기억나지 않습니까?" />
+            android:layout_marginTop="-10dp"
+            android:gravity="center"
+            android:textColor="#A270B4"
+            android:text="패스워드가 기억나지\n않습니까?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
     </LinearLayout>
     <TextView
         android:layout_gravity="center_horizontal"

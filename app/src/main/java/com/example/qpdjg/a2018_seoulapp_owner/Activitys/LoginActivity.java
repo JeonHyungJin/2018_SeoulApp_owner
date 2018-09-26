@@ -24,9 +24,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText editTextEmail;
     EditText editTextPassword;
     ImageButton buttonSignin;
-    ImageButton textviewSingin;
+    TextView textviewSingin;
     TextView textviewMessage;
-    ImageButton textviewFindPassword;
+    TextView textviewFindPassword;
     ProgressDialog progressDialog;
     //define firebase object
     FirebaseAuth firebaseAuth;
@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textviewSingin= (ImageButton) findViewById(R.id.textViewSignin);
+        textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
-        textviewFindPassword = (ImageButton) findViewById(R.id.textViewFindpassword);
+        textviewFindPassword = (TextView) findViewById(R.id.textViewFindpassword);
         buttonSignin = (ImageButton) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
         //button click event
