@@ -7,12 +7,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activitys.LoginActivity">
+        <activity android:name=".splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,8 @@
         <activity android:name=".Activitys.NewGallery" />
         <activity android:name=".Activitys.MyGallerys" />
         <activity android:name=".Activitys.Detail_Gallery" />
-        <activity android:name=".WebView_for_search_location"></activity>
+        <activity android:name=".WebView_for_search_location" />
+        <activity android:name=".Activitys.LoginActivity"></activity>
     </application>
 
 </manifest>
